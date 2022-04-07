@@ -1,30 +1,28 @@
-package org.example.hw6;
+package org.example.hw7;
 
-/** AutoWebUI. HomeWork-6
+/** AutoWebUI. HomeWork-7
  *
  * @author Pavel Pulyk
- * @version 0.1 02.04.2022
+ * @version 0.1 07.04.2022
  */
 
-import org.example.hw6.pages.MainPage;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import org.example.hw7.pages.MainPageHW7;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.util.concurrent.TimeUnit;
+import org.example.hw7.pojo.User;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class HomeWork6 extends BaseTestHW6 {
+@DisplayName("HomeWork-7")
+class HomeWork7 extends BaseTestHW7 {
 
     @Test
     @DisplayName("Авторизация нового клиента в интернет-магазине")
+    @Severity(SeverityLevel.CRITICAL)
     void authNewClientInOnlineStore() {
-        new MainPage(webDriver)
+        new MainPageHW7(webDriver)
                 .auth()
                 .basicData()
                 .yourAddress()
@@ -34,26 +32,29 @@ class HomeWork6 extends BaseTestHW6 {
 
     @Test
     @DisplayName("Проверка входа и выхода клиента в личный кабинет.")
+    @Severity(SeverityLevel.BLOCKER)
     void loginToClientsPersonalAccount() {
-        new MainPage(webDriver)
-            .login(EMAIL, PASSWORD)
+        new MainPageHW7(webDriver)
+            .login(user)
             .logout()
             .checkLoginButtonIsVisible();
     }
 
     @Test
     @DisplayName("Вход в личный кабинет по неправильному паролю.")
+    @Severity(SeverityLevel.NORMAL)
     void incorrectPassword() {
-        new MainPage(webDriver)
+        new MainPageHW7(webDriver)
                 .login(EMAIL, "incorrectPassword")
                 .checkErrorIsVisible("Неправильно заполнены поле E-Mail и/или пароль!");
     }
 
     @Test
     @DisplayName("Проверка работы кнопки соцсети VK в хедере сайта")
+    @Severity(SeverityLevel.MINOR)
     void checkButtonNetworkSocialVK() {
-        new MainPage(webDriver)
-                .login(EMAIL, PASSWORD)
+        new MainPageHW7(webDriver)
+                .login(user)
                 .checkButtonNetworkSocialVK();
     }
 }
